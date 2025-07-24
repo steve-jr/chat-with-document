@@ -158,3 +158,5 @@ yarl==1.20.1
 zipp==3.17.0
 langchain
 python-docx
+sentence-transformers
+openai
