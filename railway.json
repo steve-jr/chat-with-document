@@ -6,11 +6,11 @@
   },
   "deploy": {
     "runtime": "V2",
-    "numReplicas": 4,
+    "numReplicas": 2,
     "sleepApplication": false,
     "multiRegionConfig": {
       "us-east4-eqdc4a": {
-        "numReplicas": 4
+        "numReplicas": 2
       }
     },
     "restartPolicyType": "ON_FAILURE",

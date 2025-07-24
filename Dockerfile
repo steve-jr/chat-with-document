@@ -15,4 +15,4 @@ ENV PATH=/root/.local/bin:$PATH
 COPY . .
 RUN mkdir -p uploads sessions logs
 
-CMD gunicorn app:app --bind 0.0.0.0:${PORT:-5000} --workers 4
+CMD gunicorn app:app --bind 0.0.0.0:${PORT:-8080} --workers 4
