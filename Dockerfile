@@ -1,6 +1,4 @@
-ARG PYTHON_VERSION=3.11.13
-
-FROM python:${PYTHON_VERSION}-slim-bookworm
+FROM python:3.11.13-slim-bookworm
 
 WORKDIR /app
 
