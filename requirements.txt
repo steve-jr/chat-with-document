@@ -157,4 +157,4 @@ xxhash==3.5.0
 yarl==1.20.1
 zipp==3.17.0
 langchain
-docx
+python-docx
