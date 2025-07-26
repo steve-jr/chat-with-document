@@ -1,0 +1,15 @@
+Flask
+flask-cors
+werkzeug
+openai=1.97.1
+sentence-transformers
+pinecone==7.3.0
+pinecone-client==2.2.2
+pinecone-plugin-assistant
+pinecone-plugin-interface==0.0.7
+langchain
+PyPDF2
+docx
+logging
+huggingface-hub==0.25.2
+timedelta

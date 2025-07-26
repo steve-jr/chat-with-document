@@ -2,7 +2,6 @@
 import os
 import logging
 from typing import List, Dict, Optional, Tuple
-import numpy as np
 from sentence_transformers import SentenceTransformer
 from pinecone import Pinecone, ServerlessSpec
 from langchain.schema import Document
@@ -16,7 +15,6 @@ class PineconeVectorStore:
     """Manages embeddings and vector search using Pinecone"""
     
     def __init__(self, 
-                 session_id: str,
                  index_name: str = "company-chatbot",
                  namespace: str = "default",
                  embedding_model: str = 'all-MiniLM-L6-v2',
@@ -34,7 +32,6 @@ class PineconeVectorStore:
         self.encoder = SentenceTransformer(embedding_model)
         self.dimension = self.encoder.get_sentence_embedding_dimension()
         self.namespace = namespace
-        self.session_id = session_id
         
         # Initialize or get index
         self.index = self._initialize_index(index_name)
@@ -97,7 +94,6 @@ class PineconeVectorStore:
                     'source': doc.metadata.get('source', 'unknown'),
                     'doc_type': doc.metadata.get('doc_type', 'general'),
                     'chunk_index': doc.metadata.get('chunk_index', 0),
-                    'session_id': self.session_id,
                     'namespace': self.namespace,
                     'created_at': doc.metadata.get('created_at', datetime.now().isoformat()),
                 }
@@ -123,7 +119,7 @@ class PineconeVectorStore:
             # Wait for indexing to complete
             time.sleep(1)
             
-            logger.info(f"Successfully added {len(documents)} documents to namespace '{self.namespace}' for session '{self.session_id}'")
+            logger.info(f"Successfully added {len(documents)} documents to namespace '{self.namespace}'")
             
         except Exception as e:
             logger.error(f"Error adding documents to Pinecone: {str(e)}")
@@ -134,17 +130,14 @@ class PineconeVectorStore:
         try:
             # Generate query embedding
             query_embedding = self.encoder.encode([query])[0]
-            filter = {}
-            if self.session_id:
-                filter["session_id"] = {"$eq": self.session_id}
-
-            # Search in Pinecone by session ID and namespace
+            logger.info(f"Searching Pinecone for query: {query}")
+            
+            # Search in Pinecone by namespace
             results = self.index.query(
                 vector=query_embedding.tolist(),
                 top_k=k,
                 namespace=self.namespace,
-                include_metadata=True,
-                filter=filter
+                include_metadata=True
             )
             
             # Process results

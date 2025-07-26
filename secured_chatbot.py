@@ -19,13 +19,12 @@ class SecureRAGChatbot(RAGChatbot):
         is_safe, reason = self.security_filter.is_query_safe(query)
         if not is_safe:
             self.security_filter.log_security_event("UNSAFE_QUERY", {
-                "session_id": self.session_id,
                 "reason": reason,
                 "risk_level": self.security_filter.get_risk_level(query)
             })
             
             return {
-                "response": "I notice your query contains sensitive information. For security reasons, please don't share personal details like account numbers, SSN, or passwords. How can I help you with general banking information?",
+                "response": "I notice your query contains sensitive information. For security reasons, please don't share personal details like account numbers, SSN, or passwords. How can I help you with general company information?",
                 "sources": [],
                 "query_id": hashlib.md5(f"{query}{datetime.now()}".encode()).hexdigest()[:8],
                 "confidence": 0.0,
@@ -35,7 +34,6 @@ class SecureRAGChatbot(RAGChatbot):
         # Check if human review needed
         if self.security_filter.requires_human_review(query):
             self.security_filter.log_security_event("HUMAN_REVIEW_REQUIRED", {
-                "session_id": self.session_id,
                 "query_preview": query[:50],
                 "risk_level": self.security_filter.get_risk_level(query)
             })

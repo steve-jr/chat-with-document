@@ -140,8 +140,6 @@ toolz==0.12.1
 --find-links https://download.pytorch.org/whl/torch_stable.html
 torch==2.0.1+cpu
 torchvision==0.15.2+cpu
-# torch==2.1.0
-# torchvision==0.17.2
 tornado==6.4
 tqdm==4.66.2
 transformers==4.36.0
@@ -160,3 +158,5 @@ langchain
 python-docx
 sentence-transformers
 openai
+timedelta
+logging
