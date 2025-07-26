@@ -157,5 +157,5 @@ zipp==3.17.0
 langchain
 python-docx
 sentence-transformers
-openai
+openai=1.97.1
 timedelta

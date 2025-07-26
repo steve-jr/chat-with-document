@@ -27,7 +27,7 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'default_secret_key')
 app.config['UPLOAD_FOLDER'] = 'uploads'
 app.config['ALLOWED_EXTENSIONS'] = {'txt', 'pdf', 'docx', 'doc'}
-app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024  # 1MB default limit
+app.config['MAX_CONTENT_LENGTH'] = 0.5 * 1024 * 1024  # 0.5MB default limit
 
 CORS(app)
 
@@ -77,8 +77,8 @@ def upload_documents():
     files = request.files.getlist('documents')
     uploaded_files = []
 
-    MAX_FILE_SIZE = app.config['MAX_CONTENT_LENGTH']  # 1MB default
-    MAX_TOTAL_SIZE = 5 * 1024 * 1024  # 5MB total limit
+    MAX_FILE_SIZE = app.config['MAX_CONTENT_LENGTH']
+    MAX_TOTAL_SIZE = 2 * 1024 * 1024  # 2MB total limit
     MAX_FILES = 5
 
     # Validate number of files
