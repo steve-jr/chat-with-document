@@ -157,12 +157,11 @@ def upload_documents():
     app_state['processing_progress'] = 10
     
     try:
-        # # Process documents in a separate thread
-        # threading.Thread(
-        #     target=process_documents,
-        #     daemon=True
-        # ).start()
-        process_documents()
+        # Process documents in a separate thread
+        threading.Thread(
+            target=process_documents,
+            daemon=True
+        ).start()
     except Exception as e:
             logger.error(f"Error processing documents: {str(e)}")
             app_state['status'] = 'error'
