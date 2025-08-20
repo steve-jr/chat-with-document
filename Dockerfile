@@ -1,4 +1,4 @@
-# Multi- stage Dockerfile
+# Multi-stage Dockerfile
 FROM python:3.11.13-slim-bookworm as builder
 
 WORKDIR /app
