@@ -8,7 +8,7 @@ import logging
 from typing import List, Dict, Optional, Tuple
 import json
 import threading
-import timedelta
+from datetime import timedelta
 
 # Import our RAG components
 from document_processor import CompanyDocumentProcessor
